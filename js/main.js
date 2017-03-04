@@ -409,28 +409,3 @@ var drawBoard = {
 };//画板对象
 
 
-
-//撤回功能 重新加算法！！！！算法有问题
-// item[7].onclick = function(){
-
-// 	if(drawBoard.gloaObj.DATA.length!=0){
-
-// 		if(drawBoard.gloaObj.DATA[drawBoard.gloaObj.DATA.length-1].attr=='drawBoard.gloaObj.LINE'){
-
-// 			for(var i=drawBoard.gloaObj.DATA.length-2; i>0; i--){
-
-// 				if(drawBoard.gloaObj.DATA[i].attr!='drawBoard.gloaObj.LINE'){
-
-// 					drawBoard.gloaObj.DATA = drawBoard.gloaObj.DATA.slice(0,i+1);
-// 					break;
-// 				}
-// 			}
-// 		}else{
-
-// 			drawBoard.gloaObj.DATA.pop();
-// 		}
-// 		drawBoard.render();
-// 	}
-// };
-
-
