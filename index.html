@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="./css/main.css" />
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+	<ul id="menu">
+		<li>
+			<span></span>
+		</li>
+		<li>
+			<span></span>
+		</li>
+		<li>
+			<span></span>
+		</li>
+		<li>
+			<span></span>
+		</li>
+		<li>
+			<span></span>
+		</li>
+		<li>
+			<span></span>
+		</li>
+		<li>
+			<span></span>
+		</li>
+		<li>
+			<span></span>
+		</li>
+		<li>
+			<span></span>
+		</li>
+	</ul>
+	<div id="sidebar">
+		<div class="sidebar-draw">
+			<h2>画笔</h2>
+			<ul>
+				<li>
+					<span></span>
+				</li>
+				<li>
+					<span></span>
+				</li>
+				<li>
+					<span></span>
+				</li>
+				<li>
+					<span></span>
+				</li>
+				<li>
+					<span></span>
+				</li>
+				<li>
+					<span></span>
+				</li>			
+			</ul>
+		</div>
+		<div class="sidebar-color">
+			<h2>颜色</h2>
+			<ul>
+				<li></li>
+				<li></li>				
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+	</div>
+	<div id="firstScreen" class="first-screen">
+		<span>
+			<img src="./img/logo.gif" />
+		</span>
+	</div>
+	<script src="./js/main.js"></script>
+	<script>
+		//2s后隐藏开屏界面，初始化画板
+		!function(){
+
+			var firstScreen = document.getElementById('firstScreen');
+			setTimeout(function(){
+
+				firstScreen.style.display = 'none';
+				drawBoard.init();
+			},0);
+		}();
+		
+	</script>
+</body>
+</html>
