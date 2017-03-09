@@ -20,8 +20,6 @@ var drawBoard = {
 		this.showBoard();
 		//默认画笔功能
 		this.drawPen();
-		//下滑菜单
-		this.slideMenu();
 		//菜单功能选择
 		this.menuOption();
 		//颜色选择
@@ -34,6 +32,7 @@ var drawBoard = {
 	showBoard : function(){
 
 		var menu = document.getElementById('menu');
+		var btn = menu.getElementsByTagName('span')[8];
 		var canvas = document.getElementById('canvas');
 		drawBoard.gloaObj.CTX = canvas.getContext('2d');
 
@@ -49,6 +48,12 @@ var drawBoard = {
 			var ev = ev||event;
 			ev.cancelBubble = true;
 		};
+		//菜单滑出
+		setTimeout(function(){
+
+			menu.style.top = '0';
+			btn.className = 'glyphicon glyphicon-upload';
+		},500);
 	},
 
 	//画笔功能
@@ -338,29 +343,16 @@ var drawBoard = {
 		}
 	},
 
-	//下滑菜单
-	slideMenu : function(){
-
-		var menu = document.getElementById('menu');
-
-		menu.onmouseover = function(){
-
-			this.style.top = '0';
-		};
-		menu.onmouseout = function(){
-
-			this.style.top = '-400px';
-		};
-	},
-
 	//菜单功能选择
 	menuOption : function(){
 
 		var menu = document.getElementById('menu');
 		var item = menu.getElementsByTagName('li');
+		var btn = item[8].getElementsByTagName('span')[0];
 		var bar = document.getElementById('sidebar');
 		var barDraw = bar.querySelector('.sidebar-draw');
 		var barColor = bar.querySelector('.sidebar-color');
+		var showOff = true;
 
 		//画笔工具
 		item[0].onclick = function(ev){
@@ -396,13 +388,29 @@ var drawBoard = {
 			barDraw.style.display = 'none';
 			bar.style.right = 0;
 		};
+		//橡皮擦工具
 		item[6].onclick = function(){
 
 			drawBoard.eraser();
 		};
 		item[7].onclick = function(){
 
-			alert('撤退功能开发中...')
+			alert('撤退功能开发中...');
+		};
+		//隐藏与显示工具栏
+		item[8].onclick = function(){
+
+			menu.style.top = '-400px';
+			showOff = false;
+			btn.className = 'glyphicon glyphicon-download';
+		};
+		item[8].onmouseover = function(){
+
+			if(showOff) return;
+			showOff = true;
+			
+			menu.style.top = '0';
+			btn.className = 'glyphicon glyphicon-upload';
 		};
 	}
 

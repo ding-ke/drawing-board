@@ -17,78 +17,45 @@ body,html{
 #menu{
 	position: absolute;
 	z-index:3;
-	background:#e0f0e9;
+	background:#000;
 	left: 0;
 	top: -400px;
 	display:none;
 	transition: 0.5s ease-out;
 }
 #menu li{
-	width: 55px;
-	height: 50px;			
+	width: 50px;
+	height: 50px;	
+	text-align: center;	
 	position: relative;
 	cursor: pointer;
-}
-#menu li:nth-child(1){
-	background: url(../img/pen.png) no-repeat 9px 9px;
-}
-#menu li:nth-child(1) span{
-	background: #fff143;
-}
-#menu li:nth-child(2){
-	background: url(../img/line.png) no-repeat 9px 9px;
-}
-#menu li:nth-child(2) span{
-	background: #bce672;
-}
-#menu li:nth-child(3){
-	background: url(../img/circle.png) no-repeat 9px 9px;
-}
-#menu li:nth-child(3) span{
-	background: #fff143;
-}
-#menu li:nth-child(4){
-	background: url(../img/rect.png) no-repeat 9px 9px;
-}
-#menu li:nth-child(4) span{
-	background: #bce672;
-}
-#menu li:nth-child(5){
-	background: url(../img/thick.png) no-repeat 9px 9px;
-}
-#menu li:nth-child(5) span{
-	background: #fff143;
-}
-#menu li:nth-child(6){
-	background: url(../img/see.png) no-repeat 9px 9px;
-}
-#menu li:nth-child(6) span{
-	background: #bce672;
-}
-#menu li:nth-child(7){
-	background: url(../img/eraser2.png) no-repeat 9px 9px;
-}
-#menu li:nth-child(7) span{
-	background: #fff143;
-}
-#menu li:nth-child(8){
-	background: url(../img/back.png) no-repeat 9px 9px;
-}
-#menu li:nth-child(8) span{
-	background: #0eb83a;
-}
-#menu li:nth-child(9){
-	background: url(../img/set.png) no-repeat 9px 9px;
-}
-#menu li:nth-child(9) span{
-	background: #ff2121;
+	overflow: hidden;
 }
 #menu li span{
-	position: absolute;
-	top: 0;
-	right: 0;
-	width: 5px;
-	height: 100%;
+	font-size: 24px;
+	line-height: 50px;
+	color: #fff;
+}
+#menu li:nth-child(1) span{
+	font: 32px/50px "微软雅黑";
+}
+#menu li:nth-child(2) span{
+	transform: rotate(90deg);
+}
+#menu li:nth-child(3) span{
+	display: block;
+	width: 26px;
+	height: 26px;
+	border-radius: 50%;
+	border: 2px solid #fff;
+	margin: 10px 0 0 10px;
+}
+#menu li:nth-child(4) span{
+	display: block;
+	width: 26px;
+	height: 26px;
+	border: 1px solid #fff;
+	margin: 11px 0 0 11px;
 }
 #sidebar{
 	width: 230px;
