@@ -156,6 +156,7 @@ body,html{
 	overflow: hidden;
 	position: relative;
 	z-index: 1;
+	display: none;
 }
 .first-screen span{
 

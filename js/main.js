@@ -2,7 +2,7 @@
 //画板对象
 var drawBoard = {
 
-	//定义全局对象
+	//定义全局变量
 	gloaObj : {
 
 		W : document.documentElement.clientWidth,
@@ -64,9 +64,17 @@ var drawBoard = {
 			var ev = ev||event;
 			var sx = ev.clientX;
 			var sy = ev.clientY;
+			//画笔性能优化 没36ms取一个点
+			var onOff = true;
 
 			document.onmousemove = function(ev){
 
+				if(!onOff) return;
+				onOff = false;
+				setTimeout(function(){
+
+					onOff = true;
+				},36);
 				var ev = ev||event;
 				var ex = ev.clientX;
 				var ey = ev.clientY;
