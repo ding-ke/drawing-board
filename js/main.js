@@ -10,7 +10,8 @@ var drawBoard = {
 		CTX : null,
 		DATA : [],	//储存绘制数据
 		COLOR : '#f00056',
-		LINE : 5
+		LINE : 5,
+		TIMER : null
 	},
 
 	//初始化
@@ -31,6 +32,7 @@ var drawBoard = {
 	//显示画板
 	showBoard : function(){
 
+		var that = this;
 		var menu = document.getElementById('menu');
 		var btn = menu.getElementsByTagName('span')[8];
 		var canvas = document.getElementById('canvas');
@@ -53,6 +55,7 @@ var drawBoard = {
 
 			menu.style.top = '0';
 			btn.className = 'glyphicon glyphicon-upload';
+			that.showTip('欢迎使用画板！鼠标绘画哟～');
 		},500);
 	},
 
@@ -316,10 +319,17 @@ var drawBoard = {
 	//选择颜色
 	selectColor : function(){
 
+		var that = this;
 		var bar = document.getElementById('sidebar');
 		var barColorLi = document.querySelectorAll('.sidebar-color li');
 		var arrColor = ['#f00056','#fff','#faff72','#44cef6','#00bc12','#ffa400','#000'];
 
+		//取消冒泡
+		bar.onmousedown = function(ev){
+
+			var ev = ev||event;
+			ev.cancelBubble = true;
+		};
 		for(var i=0; i<barColorLi.length; i++){
 
 			barColorLi[i].index = i;
@@ -327,7 +337,8 @@ var drawBoard = {
 
 			barColorLi[i].onclick = function(){
 
-				drawBoard.gloaObj.COLOR = arrColor[this.index];
+				that.showTip('你重新选择了颜色！');
+				that.gloaObj.COLOR = arrColor[this.index];
 				bar.style.right = '-230px';
 			};
 		}
@@ -336,17 +347,25 @@ var drawBoard = {
 	//选择线条粗细
 	selectLine : function(){
 
+		var that = this;
 		var bar = document.getElementById('sidebar');
 		var barDrawLi = document.querySelectorAll('.sidebar-draw li');
 		var arrLine = [3,6,9,12,15,20];
 
+		//取消冒泡
+		bar.onmousedown = function(ev){
+			var ev = ev||event;
+			ev.cancelBubble = true;
+		};
 		for(var i=0; i<barDrawLi.length; i++){
 
 			barDrawLi[i].index = i;
 			barDrawLi[i].onclick = function(){
 
-				drawBoard.gloaObj.LINE = arrLine[this.index];
+				that.showTip('你重新选择了画笔宽度！');
+				that.gloaObj.LINE = arrLine[this.index];
 				bar.style.right = '-230px';
+				
 			};
 		}
 	},
@@ -354,6 +373,7 @@ var drawBoard = {
 	//菜单功能选择
 	menuOption : function(){
 
+		var that = this;
 		var menu = document.getElementById('menu');
 		var item = menu.getElementsByTagName('li');
 		var btn = item[8].getElementsByTagName('span')[0];
@@ -363,24 +383,28 @@ var drawBoard = {
 		var showOff = true;
 
 		//画笔工具
-		item[0].onclick = function(ev){
+		item[0].onclick = function(){
 
-			drawBoard.drawPen();
+			that.showTip('你选择了画笔工具！');
+			that.drawPen();
 		};
 		//直线工具
 		item[1].onclick = function(){
 
-			drawBoard.drawLine();
+			that.showTip('你选择了直线工具！');
+			that.drawLine();
 		};
 		//圆形工具
 		item[2].onclick = function(){
 
-			drawBoard.drawCircle();
+			that.showTip('你选择了圆形工具！');
+			that.drawCircle();
 		};
 		//矩形工具
 		item[3].onclick = function(){
 
-			drawBoard.drawRect();
+			that.showTip('你选择了矩形工具！');
+			that.drawRect();
 		};
 		//粗细工具
 		item[4].onclick = function(){
@@ -399,11 +423,12 @@ var drawBoard = {
 		//橡皮擦工具
 		item[6].onclick = function(){
 
-			drawBoard.eraser();
+			that.showTip('你选择了橡皮擦！');
+			that.eraser();
 		};
 		item[7].onclick = function(){
 
-			alert('撤退功能开发中...');
+			that.showTip('撤退功能开发中！','remove');
 		};
 		//隐藏与显示工具栏
 		item[8].onclick = function(){
@@ -420,8 +445,31 @@ var drawBoard = {
 			menu.style.top = '0';
 			btn.className = 'glyphicon glyphicon-upload';
 		};
+	},
+
+	//消息框
+	showTip : function(t,i){
+
+		var tip = document.getElementById('tip');
+		var icon = tip.getElementsByTagName('span')[0]
+		var text = tip.getElementsByTagName('span')[1];
+
+		clearInterval(this.TIMER);
+		i = i||'ok';
+		icon.className = 'glyphicon glyphicon-' + i;
+		text.innerHTML = t;
+		tip.style.display = 'block';
+		tip.style.transition = '0.5s';
+		setTimeout(function(){
+
+			tip.style.top = '50px'; 	
+		},16);
+		this.TIMER = setTimeout(function(){
+
+			tip.style.transition = '';
+			tip.style.display = 'none';
+			tip.style.top = '0';
+		},2000);
 	}
 
 };//画板对象
-
-

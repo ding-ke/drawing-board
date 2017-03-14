@@ -7,7 +7,9 @@
 	<link rel="stylesheet" href="./bsf/css/bootstrap.css" />
 </head>
 <body>
+	<!-- 全屏画布 -->
 	<canvas id="canvas"></canvas>
+	<!-- 功能菜单 -->
 	<ul id="menu">
 		<li>
 			<span class="glyphicon glyphicon-pencil"> </span>
@@ -38,7 +40,7 @@
 		</li>
 		
 	</ul>
-
+	<!-- 颜色画笔选择侧边栏 -->
 	<div id="sidebar">
 		<div class="sidebar-draw">
 			<h2>画笔</h2>
@@ -76,10 +78,18 @@
 			</ul>
 		</div>
 	</div>
+	<!-- 开屏动画 -->
 	<div id="firstScreen" class="first-screen">
 		<span>
 			<img src="./img/logo.gif" />
 		</span>
+	</div>
+	<!-- 弹窗提示框 -->
+	<div id="tip" class="tip">
+		<div class="tip-main">
+			<span></span>
+			<span class="text">你选择了红色！</span>
+		</div>
 	</div>
 	<script src="./js/main.js"></script>
 	<script>
