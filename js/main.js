@@ -11,6 +11,8 @@ var drawBoard = {
 		DATA : [],	//储存绘制数据
 		COLOR : '#f00056',
 		LINE : 5,
+		PENS : 0,
+		ERAS : 0,
 		TIMER : null
 	},
 
@@ -62,11 +64,13 @@ var drawBoard = {
 	//画笔功能
 	drawPen : function(){
 
+		var that = this;
 		document.onmousedown = function(ev){
 
 			var ev = ev||event;
 			var sx = ev.clientX;
 			var sy = ev.clientY;
+			that.gloaObj.PENS++;
 			//画笔性能优化 没36ms取一个点
 			var onOff = true;
 
@@ -81,28 +85,29 @@ var drawBoard = {
 				var ev = ev||event;
 				var ex = ev.clientX;
 				var ey = ev.clientY;
-				var n = drawBoard.gloaObj.DATA.length;
+				var n = that.gloaObj.DATA.length;
 
-				drawBoard.gloaObj.DATA[n] = new Object();
+				that.gloaObj.DATA[n] = new Object();
 				//为画笔绘制的对象定义属性'point-line'
 				//将该对象存入绘制数据中
-				drawBoard.gloaObj.DATA[n].attr = 'point-line';
-				drawBoard.gloaObj.DATA[n].sx = sx;
-				drawBoard.gloaObj.DATA[n].sy = sy;
-				drawBoard.gloaObj.DATA[n].ex = ex;
-				drawBoard.gloaObj.DATA[n].ey = ey;
-				drawBoard.gloaObj.DATA[n].w = drawBoard.gloaObj.LINE;
-				drawBoard.gloaObj.DATA[n].c = drawBoard.gloaObj.COLOR;
+				that.gloaObj.DATA[n].attr = 'point-line';
+				that.gloaObj.DATA[n].count = that.gloaObj.PENS;
+				that.gloaObj.DATA[n].sx = sx;
+				that.gloaObj.DATA[n].sy = sy;
+				that.gloaObj.DATA[n].ex = ex;
+				that.gloaObj.DATA[n].ey = ey;
+				that.gloaObj.DATA[n].w = that.gloaObj.LINE;
+				that.gloaObj.DATA[n].c = that.gloaObj.COLOR;
 				//直接绘制
-				drawBoard.gloaObj.CTX.beginPath();
-				drawBoard.gloaObj.CTX.moveTo(sx,sy);
-				drawBoard.gloaObj.CTX.lineTo(ex,ey);
-				drawBoard.gloaObj.CTX.closePath();
-				drawBoard.gloaObj.CTX.strokeStyle = drawBoard.gloaObj.COLOR;
-				drawBoard.gloaObj.CTX.lineJoin = 'round';
-				drawBoard.gloaObj.CTX.lineCap = 'round';
-				drawBoard.gloaObj.CTX.lineWidth = drawBoard.gloaObj.LINE;
-				drawBoard.gloaObj.CTX.stroke();
+				that.gloaObj.CTX.beginPath();
+				that.gloaObj.CTX.moveTo(sx,sy);
+				that.gloaObj.CTX.lineTo(ex,ey);
+				that.gloaObj.CTX.closePath();
+				that.gloaObj.CTX.strokeStyle = that.gloaObj.COLOR;
+				that.gloaObj.CTX.lineJoin = 'round';
+				that.gloaObj.CTX.lineCap = 'round';
+				that.gloaObj.CTX.lineWidth = that.gloaObj.LINE;
+				that.gloaObj.CTX.stroke();
 				sx = ex;
 				sy = ey;
 			};
@@ -234,29 +239,32 @@ var drawBoard = {
 	//橡皮擦功能
 	eraser : function(){
 
+		var that = this;
 		document.onmousedown = function(){
 
+			that.gloaObj.ERAS++;
 			document.onmousemove = function(ev){
 
 				var ev = ev||event;
 				var ex = ev.clientX;
 				var ey = ev.clientY;
-				var n = drawBoard.gloaObj.DATA.length;
+				var n = that.gloaObj.DATA.length;
 
-				drawBoard.gloaObj.DATA[n] = new Object();
+				that.gloaObj.DATA[n] = new Object();
 				//为橡皮擦绘制的方块定义属性 'clear-rect'
-				drawBoard.gloaObj.DATA[n].attr = 'clear-rect';
-				drawBoard.gloaObj.DATA[n].x = ex-15;
-				drawBoard.gloaObj.DATA[n].y = ey-15;
+				that.gloaObj.DATA[n].attr = 'clear-rect';
+				that.gloaObj.DATA[n].count = that.gloaObj.ERAS;
+				that.gloaObj.DATA[n].x = ex-15;
+				that.gloaObj.DATA[n].y = ey-15;
 				//橡皮擦固定宽高
-				drawBoard.gloaObj.DATA[n].w = 30;
-				drawBoard.gloaObj.DATA[n].h = 30;
-				drawBoard.gloaObj.DATA[n].c = '#fff';
-				drawBoard.gloaObj.CTX.fillStyle = '#fff';
-				drawBoard.gloaObj.CTX.beginPath();
-				drawBoard.gloaObj.CTX.fillRect(ex-15,ey-15,30,30);
-				drawBoard.gloaObj.CTX.closePath();
-				drawBoard.gloaObj.CTX.fill();
+				that.gloaObj.DATA[n].w = 30;
+				that.gloaObj.DATA[n].h = 30;
+				that.gloaObj.DATA[n].c = '#fff';
+				that.gloaObj.CTX.fillStyle = '#fff';
+				that.gloaObj.CTX.beginPath();
+				that.gloaObj.CTX.fillRect(ex-15,ey-15,30,30);
+				that.gloaObj.CTX.closePath();
+				that.gloaObj.CTX.fill();
 
 			};
 			document.onmouseup = function(){
@@ -370,6 +378,49 @@ var drawBoard = {
 		}
 	},
 
+	//撤退功能 根据最后一次绘画数据属性来判断 撤退的步数
+	toBack : function(){
+
+		var lastData = this.gloaObj.DATA[this.gloaObj.DATA.length-1];
+
+		if(!lastData){
+
+			this.showTip('撤退无效！你没有绘画！','remove');
+			return false;
+		}
+
+		var attr = lastData.attr;
+
+		switch(attr){
+
+			case 'line' :
+			case 'circle' :
+			case 'rect' :
+
+				this.gloaObj.DATA.pop();
+				break;
+
+			case 'point-line' :
+			case 'clear-rect' :
+
+				var count = this.gloaObj.DATA[this.gloaObj.DATA.length-1].count;
+				for(var i=this.gloaObj.DATA.length-1; i>=0; i--){
+
+					//撤退画笔功能及橡皮擦功能 满足属性值及下笔的次数
+					if(attr==this.gloaObj.DATA[i].attr&&count==this.gloaObj.DATA[i].count){
+
+						this.gloaObj.DATA.pop();
+					}else{
+
+						break;
+					}
+				}
+				break;
+		}
+		this.render();
+		return true;
+	},
+
 	//菜单功能选择
 	menuOption : function(){
 
@@ -426,9 +477,16 @@ var drawBoard = {
 			that.showTip('你选择了橡皮擦！');
 			that.eraser();
 		};
+		//撤退功能 
 		item[7].onclick = function(){
 
-			that.showTip('撤退功能开发中！','remove');
+			if(that.toBack() ){
+
+				that.showTip('撤退成功！');
+			}else{
+
+				that.showTip('撤退无效！你没有绘画！','remove');
+			}
 		};
 		//隐藏与显示工具栏
 		item[8].onclick = function(){
@@ -447,7 +505,7 @@ var drawBoard = {
 		};
 	},
 
-	//消息框
+	//消息框 i参数为图标参数 不填默认ok（勾图标） 填remove（叉图标）
 	showTip : function(t,i){
 
 		var tip = document.getElementById('tip');
@@ -455,6 +513,7 @@ var drawBoard = {
 		var text = tip.getElementsByTagName('span')[1];
 
 		clearInterval(this.TIMER);
+		
 		i = i||'ok';
 		icon.className = 'glyphicon glyphicon-' + i;
 		text.innerHTML = t;
