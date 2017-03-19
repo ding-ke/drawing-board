@@ -29,6 +29,8 @@ var drawBoard = {
 		this.selectColor();
 		//粗细选择
 		this.selectLine();
+		//自定义菜单
+		this.customMenu();
 	},
 
 	//显示画板
@@ -529,6 +531,35 @@ var drawBoard = {
 			tip.style.display = 'none';
 			tip.style.top = '0';
 		},2000);
-	}
+	},
 
+	//自定义右键菜单
+	customMenu : function(){
+
+		var menu = document.getElementById('contextmenu');
+		var timer = null;
+		document.oncontextmenu = function(ev){
+
+			var ev = ev || event;
+			var sX = ev.clientX;
+			var sY = ev.clientY;
+
+			menu.style.display = 'block';
+			menu.style.left = sX + 'px';
+			menu.style.top = sY + 'px';
+			
+			timer = setTimeout(function(){
+
+				menu.style.display = 'none';
+			},3000);
+
+			return false;
+		};
+
+		menu.onclick = function(){
+
+			clearTimeout(timer);
+			this.style.display = 'none';
+		};
+	}
 };//画板对象

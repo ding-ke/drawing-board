@@ -227,3 +227,28 @@ body,html{
 .tip .text{
 	font: 16px/40px "微软雅黑";
 }
+.contextmenu{
+	position: absolute;
+	top: 0;
+	left: 0; 
+	z-index: 10;
+	background: #000;
+	border-radius: 10px;
+	display: none;
+}
+.contextmenu li{
+	width: 200px;
+	height: 50px;
+	font: 14px/50px "微软雅黑";
+	color: #fff;
+	text-indent: 2em;
+	border-bottom: 1px dashed #f5f5f5;
+	cursor: pointer;
+}
+.contextmenu li:first-child{
+	color: #999;
+	cursor: default;
+}
+.contextmenu li:last-child{
+	border-bottom: none;
+}

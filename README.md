@@ -6,21 +6,23 @@
 	
 > #### 文件结构
 	
-	DrawingBoard/
-	├── bsf/
-	│   ├── css/
-	│	 │	 └── bootstrap.css
-	│	 │
-	│	 └── font/
-	│		 └── 	
-	├── css/
-	│	└── style.css
-	│
-	├── js/
-	│	└── main.js
-	│
-	└── index.html
-	
+ DrawingBoard/
+ ├── bsf/
+ │ ├── css/
+ │	│	└── bootstrap.css
+ │	│
+ │	└── font/
+ │	└── 
+ ├── css/
+ │	└── style.css
+ │
+ ├── js/
+ │	└── main.js
+ │
+ └── index.html
+
+> [点此进入Canvas画图工具](https://ding-ke.github.io/DrawingBoard/)
+
 > #### 更新
 
 - 2017-03-04	
@@ -46,3 +48,7 @@
 - 2017-03-16	
 	
 	- 实现撤退功能，即回到上一步的绘画状态。
+
+- 2017-03-19
+	
+	- 禁用系统右键菜单，实现自定义右键菜单。
