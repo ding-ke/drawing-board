@@ -536,10 +536,14 @@ var drawBoard = {
 	//自定义右键菜单
 	customMenu : function(){
 
+		var that = this;
 		var menu = document.getElementById('contextmenu');
+		var item = menu.getElementsByTagName('li');
 		var timer = null;
 		document.oncontextmenu = function(ev){
 
+			clearTimeout(timer);
+			
 			var ev = ev || event;
 			var sX = ev.clientX;
 			var sY = ev.clientY;
@@ -561,5 +565,33 @@ var drawBoard = {
 			clearTimeout(timer);
 			this.style.display = 'none';
 		};
+
+		item[1].onclick = function(){
+
+			that.fullScreen();
+		};
+	},
+
+	//全屏模式
+	fullScreen : function(){
+
+		var docElm = document.documentElement;
+
+	    if(docElm.requestFullscreen){
+
+	        docElm.requestFullscreen();
+	    }  
+	    else if(docElm.mozRequestFullScreen){
+
+	        docElm.mozRequestFullScreen();
+	    }
+	    else if(docElm.webkitRequestFullScreen){
+
+	        docElm.webkitRequestFullScreen();
+	    }
+	    else if(elem.msRequestFullscreen){
+
+	        elem.msRequestFullscreen();
+	    }
 	}
 };//画板对象
