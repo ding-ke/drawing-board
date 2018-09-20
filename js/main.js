@@ -608,13 +608,13 @@ var drawBoard = {
 		let MIME_TYPE = 'image/png';
 		let imgURL = canvas.toDataURL(MIME_TYPE);
 		let aElement = document.createElement('a');
-		
-    aElement.download = 'Picture';
-    aElement.href = imgURL;
-    aElement.dataset.downloadurl = [MIME_TYPE, aElement.download, aElement.href].join(':');
 
-    document.body.appendChild(aElement);
-    aElement.click();
-    document.body.removeChild(aElement);
+		aElement.download = 'Picture';
+		aElement.href = imgURL;
+		aElement.dataset.downloadurl = [MIME_TYPE, aElement.download, aElement.href].join(':');
+
+		document.body.appendChild(aElement);
+		aElement.click();
+		document.body.removeChild(aElement);
 	}
 };//画板对象
