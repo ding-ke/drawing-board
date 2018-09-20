@@ -1,6 +1,6 @@
 ## Canvas画图工具
 	
-> #### 项目介绍：
+> #### 项目介绍
 
 	原生 JavaScript & Canvas API 实现的一个画图小工具。
 	
