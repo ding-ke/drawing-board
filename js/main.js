@@ -574,7 +574,7 @@ var drawBoard = {
     //2018-09-20更新
     item[2].onclick = () => {
 
-      that.saveImg();
+      this.saveImg();
     };
   },
 
