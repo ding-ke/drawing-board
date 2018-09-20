@@ -1,15 +1,15 @@
 ## Canvas画图工具
 	
-> #### 项目介绍：
+> #### 项目介绍
 
 	原生 JavaScript & Canvas API 实现的一个画图小工具。
 	
 > #### 文件结构
 
-	- bsf(bootstrap font) -> 从 Bootstrap 单独拿出来的图标样式文件
-	- css 样式文件
-	- img 项目 Logo
-	- js 源码都在这啦
+	 * bsf(bootstrap font) -> 从 Bootstrap 单独拿出来的图标样式文件
+	 * css 样式文件
+	 * img 项目 Logo
+	 * js 源码都在这啦
 	
 
 > [点此进入Canvas画图工具](https://ding-ke.github.io/DrawingBoard/)
