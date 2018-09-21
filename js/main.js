@@ -73,7 +73,7 @@ var drawBoard = {
       var sx = ev.clientX;
       var sy = ev.clientY;
       that.gloaObj.PENS++;
-      //画笔性能优化 没36ms取一个点
+      //画笔性能优化 每36ms取一个点
       var onOff = true;
 
       document.onmousemove = function (ev) {
