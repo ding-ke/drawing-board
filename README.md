@@ -12,7 +12,7 @@
 	 * js 源码都在这啦
 	
 
-> [点此进入Canvas画图工具](https://ding-ke.github.io/DrawingBoard/)
+> [点此进入Canvas画图工具](https://ding-ke.github.io/drawing-board/)
 
 > #### 更新日志
 
