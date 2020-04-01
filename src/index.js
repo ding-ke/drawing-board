@@ -9,8 +9,7 @@ function DrawBoard (params) {
     lineWidth: 5,
     typeIndex: 0,
     eraserCount: 0
-  },
-  this.timer = null
+  }
 }
 
 DrawBoard.prototype.initPenTool = function () {
