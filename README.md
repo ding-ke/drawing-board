@@ -14,7 +14,7 @@
 ```js
 // Instantiation a drawing board object
 const board = new DrawBoard({
-	element: 'my-board'
+	element: 'my-board',
 	width: 200,
 	height: 200,
 	color: 'red',
@@ -33,17 +33,17 @@ board.download('picture');
 ## ALL API
 
 ```js
-const board = new DrawBoard({})
+const board = new DrawBoard({});
 
-board.setColor()
-board.setLineWidth()
-board.clearAll()
-board.usePenTool()
-board.useLineTool()
-board.useCircleTool()
-board.useEraser()
-board.backspace()
-board.download()
+board.setColor();
+board.setLineWidth();
+board.clearAll();
+board.usePenTool();
+board.useLineTool();
+board.useCircleTool();
+board.useEraser();
+board.backspace();
+board.download();
 
 ```
 

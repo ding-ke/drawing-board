@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Example - Drawing Board</title>
-	<style>
-		*{
-			margin: 0;
-			padding: 0;
-		}
-	</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Example - Drawing Board</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+  </style>
 </head>
 <body>
-	<canvas id="my-board"></canvas>
-	<script src="./src/index.js"></script>
-	<script>
-		var board = new DrawBoard({
-			element: 'my-board'
-		})
-		alert('You can drawing now ~')
-	</script>
+  <canvas id="my-board"></canvas>
+  <script src="./src/index.js"></script>
+  <script>
+    var board = new DrawBoard({
+      element: 'my-board'
+    })
+    alert('You can draw now ~')
+  </script>
 </body>
 </html>
