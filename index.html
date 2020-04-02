@@ -2,119 +2,22 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Canvas画图工具</title>
-	<link rel="stylesheet" href="./css/style.css" />
-	<link rel="stylesheet" href="./bsf/css/bootstrap.css" />
+	<title>Example - Drawing Board</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+	</style>
 </head>
 <body>
-	<!-- 全屏画布 -->
-	<canvas id="canvas"></canvas>
-	<!-- 功能菜单 -->
-	<ul id="menu">
-		<li>
-			<span class="glyphicon glyphicon-pencil"> </span>
-		</li>
-		<li>
-			<span class="glyphicon glyphicon-italic"></span>
-		</li>
-		<li>
-			<span></span>
-		</li>
-		<li>
-			<span></span>
-		</li>
-		<li>
-			<span class="glyphicon glyphicon-cog"></span>
-		</li>
-		<li>
-			<span class="glyphicon glyphicon-asterisk"></span>
-		</li>
-		<li>
-			<span class="glyphicon glyphicon-erase"></span>
-		</li>
-		<li>
-			<span class="glyphicon glyphicon-repeat"></span>
-		</li>
-		<li>
-			<span class="glyphicon glyphicon-download"></span>
-		</li>		
-	</ul>
-	<!-- 颜色画笔选择侧边栏 -->
-	<div id="sidebar">
-		<div class="sidebar-draw">
-			<h2>画笔</h2>
-			<ul>
-				<li>
-					<span></span>
-				</li>
-				<li>
-					<span></span>
-				</li>
-				<li>
-					<span></span>
-				</li>
-				<li>
-					<span></span>
-				</li>
-				<li>
-					<span></span>
-				</li>
-				<li>
-					<span></span>
-				</li>			
-			</ul>
-		</div>
-		<div class="sidebar-color">
-			<h2>颜色</h2>
-			<ul>
-				<li></li>
-				<li></li>				
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-			</ul>
-		</div>
-	</div>
-	<!-- 开屏动画 -->
-	<div id="firstScreen" class="first-screen">
-		<span>
-			<img src="./img/logo.gif" />
-		</span>
-	</div>
-	<!-- 弹窗提示框 -->
-	<div id="tip" class="tip">
-		<div class="tip-main">
-			<span></span>
-			<span class="text">你选择了红色！</span>
-		</div>
-	</div>
-	<!-- 鼠标右键菜单 -->
-	<div id="contextmenu" class="contextmenu">
-		<ul>
-			<li>Canvas画板 v3.20</li>
-			<li>全屏模式</li>
-			<li>
-				<a>
-					保存绘画
-					<img src="" id="saveImg"/>
-				</a>
-			</li>
-		</ul>
-	</div>
-	<script src="./js/main.js"></script>
+	<canvas id="my-board"></canvas>
+	<script src="./src/index.js"></script>
 	<script>
-		//2s后隐藏开屏界面，初始化画板
-		!function(){
-
-			var firstScreen = document.getElementById('firstScreen');
-			setTimeout(function(){
-
-				firstScreen.style.display = 'none';
-				drawBoard.init();
-			},3500);
-		}();
+		var board = new DrawBoard({
+			element: 'my-board'
+		})
+		alert('You can drawing now ~')
 	</script>
 </body>
 </html>
