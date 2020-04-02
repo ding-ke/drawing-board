@@ -1,18 +1,32 @@
 function DrawBoard (params) {
-  this.element = document.getElementById(params.element)
-  this.element.width = params.width || 100
-  this.element.height = params.height || 100
-  this.context = this.element.getContext('2d')
-  this.data = []
+  this.element = document.getElementById(params.element);
+  this.element.width = params.width || document.documentElement.clientWidth;
+  this.element.height = params.height || document.documentElement.clientHeight;
+  this.context = this.element.getContext('2d');
+  this.data = [];
   this.toolState = {
-    color: '#f00056',
-    lineWidth: 5,
+    color: params.color || '#f00056',
+    lineWidth: params.lineWidth || 5,
     typeIndex: 0,
     eraserCount: 0
-  }
+  };
+  this.usePenTool();
 }
 
-DrawBoard.prototype.initPenTool = function () {
+DrawBoard.prototype.setColor = function (color) {
+  this.toolState.color = color;
+};
+
+DrawBoard.prototype.setLineWidth = function (width) {
+  this.toolState.lineWidth = width;
+};
+
+DrawBoard.prototype.clearAll = function () {
+  this.data = [];
+  this.context.clearRect(0, 0, this.element.width, this.element.height);
+};
+
+DrawBoard.prototype.usePenTool = function () {
   var that = this;
 
   that.element.onmousedown = function (ev) {
@@ -23,7 +37,9 @@ DrawBoard.prototype.initPenTool = function () {
     var onOff = true;
 
     that.element.onmousemove = function (ev) {
-      if (!onOff) return;
+      if (!onOff) {
+        return;
+      }
       onOff = false;
       setTimeout(function () {
         onOff = true;
@@ -40,9 +56,9 @@ DrawBoard.prototype.initPenTool = function () {
         endY: ev.clientY,
         color: that.toolState.color,
         lineWidth: that.toolState.lineWidth
-      }
+      };
 
-      that.context.beginPath()
+      that.context.beginPath();
       that.context.moveTo(startX, startY);
       that.context.lineTo(ev.clientX, ev.clientY);
       that.context.closePath();
@@ -63,13 +79,13 @@ DrawBoard.prototype.initPenTool = function () {
   };
 };
 
-DrawBoard.prototype.initLineTool = function () {
-  var that = this
+DrawBoard.prototype.useLineTool = function () {
+  var that = this;
 
   that.element.onmousedown = function (ev) {
     var ev = ev || event;
-    var startX = ev.clientX
-    var startY = ev.clientY
+    var startX = ev.clientX;
+    var startY = ev.clientY;
     var index = that.data.length;
 
     that.element.onmousemove = function (ev) {
@@ -91,21 +107,21 @@ DrawBoard.prototype.initLineTool = function () {
     };
     return false;
   };
-}
+};
 
-DrawBoard.prototype.initCircleTool = function () {
-  var that = this
+DrawBoard.prototype.useCircleTool = function () {
+  var that = this;
 
   that.element.onmousedown = function (ev) {
     var ev = ev || event;
-    var startX = ev.clientX
-    var startY = ev.clientY
+    var startX = ev.clientX;
+    var startY = ev.clientY;
     var index = that.data.length;
 
     that.element.onmousemove = function (ev) {
       var ev = ev || event;
-      var centerX = ev.clientX - startX
-      var centerY = ev.clientY - startY
+      var centerX = ev.clientX - startX;
+      var centerY = ev.clientY - startY;
 
       that.data[index] = {
         type: 'circle',
@@ -113,7 +129,7 @@ DrawBoard.prototype.initCircleTool = function () {
         centerY: centerY / 2 + startY,
         radius: Math.sqrt(centerX * centerX + centerY * centerY) / 2,
         color: that.toolState.color
-      }
+      };
       that.render();
     };
     
@@ -122,9 +138,9 @@ DrawBoard.prototype.initCircleTool = function () {
     };
     return false;
   };
-}
+};
 
-DrawBoard.prototype.initRectTool = function () {
+DrawBoard.prototype.useRectTool = function () {
   var that = this;
 
   that.element.onmousedown = function (ev) {
@@ -142,7 +158,7 @@ DrawBoard.prototype.initRectTool = function () {
         width: ev.clientX - startX,
         height: ev.clientY - startY,
         color: that.toolState.color
-      }
+      };
       that.render();
     };
 
@@ -151,11 +167,11 @@ DrawBoard.prototype.initRectTool = function () {
     };
     return false;
   };
-}
+};
 
-DrawBoard.prototype.initEraser = function () {
+DrawBoard.prototype.useEraser = function () {
   var that = this;
-  ++that.toolState.typeIndex
+  ++that.toolState.typeIndex;
   that.element.onmousedown = function () {
     that.element.onmousemove = function (ev) {
       var ev = ev || event;
@@ -169,7 +185,7 @@ DrawBoard.prototype.initEraser = function () {
         width: 30,
         height: 30,
         color: '#fff'
-      }
+      };
       
       that.gloaObj.CTX.fillStyle = '#fff';
       that.gloaObj.CTX.beginPath();
@@ -185,9 +201,9 @@ DrawBoard.prototype.initEraser = function () {
   };
 }
 
-DrawBoard.prototype.rollback = function () {
+DrawBoard.prototype.backspace = function () {
   if (this.data.length === 0) {
-    console.warn('当前画板没有绘制数据')
+    console.warn('当前画板没有绘制数据');
     return false;
   }
   var type = this.data[this.data.length - 1].type;
@@ -211,18 +227,18 @@ DrawBoard.prototype.rollback = function () {
   }
   this.render();
   return true;
-}
+};
 
-DrawBoard.prototype.download = function () {
+DrawBoard.prototype.download = function (fileName) {
   var imgURL = this.element.toDataURL('image/png');
   var aElement = document.createElement('a');
-  aElement.download = 'Picture';
+  aElement.download = fileName || 'image';
   aElement.href = imgURL;
-  aElement.dataset.downloadurl = ['image/png', 'Picture', imgURL].join(':');
+  aElement.dataset.downloadurl = ['image/png', fileName, imgURL].join(':');
   document.body.appendChild(aElement);
   aElement.click();
   document.body.removeChild(aElement);
-}
+};
 
 DrawBoard.prototype.render = function () {
   this.context.clearRect(0, 0, this.element.width, this.element.height);
@@ -257,4 +273,4 @@ DrawBoard.prototype.render = function () {
         break;
     }
   }
-}
+};
