@@ -6,7 +6,7 @@
 
 [Click here to preview](https://ding-ke.github.io/drawing-board/)
 
-## Useage
+## Usage
 
 ```html
 <canvas id="my-board"></canvas>
